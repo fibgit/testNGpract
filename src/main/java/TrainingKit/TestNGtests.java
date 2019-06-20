@@ -9,7 +9,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 
 public class TestNGtests {
 
@@ -17,7 +16,7 @@ public class TestNGtests {
 
     @BeforeMethod(alwaysRun = true)
     public void setUp(){
-        driver.get("https://www.register.com/");
+        driver.get("https://www.register.com");
         driver.manage().window().maximize();
     }
 
@@ -27,13 +26,18 @@ public class TestNGtests {
     }
 
     @Test
-    public void testTestsForWebpage() throws Exception {
+    public void LoginToWebpage() throws Exception {
 
         //Find the login tab on the page and click the login tab
 
         WebElement clickLoginTab = driver.findElement(By.id("log-in"));
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         clickLoginTab.click();
+    }
+    @Test
+    public void signIntoHostingAccount() throws Exception {
+
+        LoginToWebpage();
 
         //Find the dropdown button on the page
         WebElement dropDownButton = driver.findElement(By.className("selectButton"));
@@ -48,14 +52,24 @@ public class TestNGtests {
         // Click the Web hosting account from the drop down list
         AccountMangerDropDown.click();
         Thread.sleep(2000);
-
+    }
+    @Test
+    public void clickButtonToAcceptCookies() throws Exception {
         //Scroll down to the bottom of the page and locate the "GOT IT" button to consent to the use of site cookies
-        WebElement  gotItButton = driver.findElement(By.xpath("//button[@class=\"optanon-allow-all accept-cookies-button\"]"));
+
+        signIntoHostingAccount();
+
+        WebElement gotItButton = driver.findElement(By.xpath("//button[@class=\"optanon-allow-all accept-cookies-button\"]"));
         Thread.sleep(2000);
 
         // click the "GOT IT" button to consent to use site cookies
         gotItButton.click();
-        Thread.sleep(2000);
+
+    }
+    @Test
+    public void AccessAffiliatePage() throws Exception {
+
+        clickButtonToAcceptCookies();
 
         //locate the "Partner with Register.com" paragraph
         WebElement paragraph = driver.findElement(By.xpath("//p[text()=\"Partner with Register.com\"]"));
