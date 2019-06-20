@@ -1,4 +1,4 @@
 # testNGpract
 testNg
 
-Test NG project
+Test NG project to understand assertions using the framework
