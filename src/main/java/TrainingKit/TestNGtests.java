@@ -9,6 +9,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+
 public class TestNGtests {
 
     private WebDriver driver = new ChromeDriver();
@@ -25,13 +27,12 @@ public class TestNGtests {
     }
 
     @Test
-    public void testTestsForWebpage() throws InterruptedException {
+    public void testTestsForWebpage() throws Exception {
 
-        //Find the login tab on the page
+        //Find the login tab on the page and click the login tab
+
         WebElement clickLoginTab = driver.findElement(By.id("log-in"));
         Thread.sleep(1000);
-
-        //Click the login tab
         clickLoginTab.click();
 
         //Find the dropdown button on the page
@@ -69,4 +70,6 @@ public class TestNGtests {
         affiliate_link.click();
         Thread.sleep(1000);
     }
+
+
 }
