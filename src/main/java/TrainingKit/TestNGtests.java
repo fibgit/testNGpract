@@ -1,15 +1,16 @@
 package TrainingKit;
 
-import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 
 
 public class TestNGtests {
@@ -43,13 +44,37 @@ public class TestNGtests {
     public void SearchforDomain() throws InterruptedException {
         // Search for a domain the search bar on the Home page
 
-        WebElement clearSearchField = driver.findElement(By.id("hp-searchInput"));
-        clearSearchField.clear();
-        clearSearchField.sendKeys("biochemical.com");
+        WebElement SearchField = driver.findElement(By.id("hp-searchInput"));
+        SearchField.clear();
+        SearchField.sendKeys("biochemical.com");
         Thread.sleep(2000);
 
         WebElement searchButton = driver.findElement(By.id("domainSearch"));
         searchButton.click();
+
+        WebDriverWait toWait = new WebDriverWait(driver,30);
+
+        WebElement secondSearchField = toWait.until(presenceOfElementLocated(By.id("SearchedDomain")));
+        WebElement secondDomainButton = toWait.until(presenceOfElementLocated(By.xpath("//input[@value='Search Domains']")));
+
+        WebElement notFoundDomain = toWait.until(presenceOfElementLocated(By.xpath("//span[@class='not-avail']")));
+        WebElement isAvailableDomain = toWait.until(presenceOfElementLocated(By.xpath("//h1[@class='congrats']")));
+        WebElement addToCartButton = toWait.until(presenceOfElementLocated(By.xpath("//input[@class='button btn-standard addDomainToCart']")));
+
+        if (notFoundDomain.isDisplayed()) {
+            secondSearchField.sendKeys("biochemistry.solutions");
+            secondDomainButton.click();
+        } else if(isAvailableDomain.isDisplayed()) {
+            addToCartButton.click();
+        }
+    /*
+        Assert.assertEquals(driver.findElement(By.id("biochemical.online-action")).isDisplayed());
+            domainAvailableButton.click();
+            SearchedDomain
+            Search Domains
+*/
+
+
     }
 
 
