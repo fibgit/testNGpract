@@ -1,5 +1,6 @@
 package TrainingKit;
 
+import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,11 +9,14 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 
 public class TestNGtests {
-
     private WebDriver driver = new ChromeDriver();
+
+
+
 
     @BeforeMethod(alwaysRun = true)
     public void setUp(){
@@ -34,6 +38,22 @@ public class TestNGtests {
         Thread.sleep(2000);
         clickLoginTab.click();
     }
+
+    @Test
+    public void SearchforDomain() throws InterruptedException {
+        // Search for a domain the search bar on the Home page
+
+        WebElement clearSearchField = driver.findElement(By.id("hp-searchInput"));
+        clearSearchField.clear();
+        clearSearchField.sendKeys("biochemical.com");
+        Thread.sleep(2000);
+
+        WebElement searchButton = driver.findElement(By.id("domainSearch"));
+        searchButton.click();
+    }
+
+
+
     @Test
     public void signIntoHostingAccount() throws Exception {
 
