@@ -44,9 +44,15 @@ public class TestNGtests {
     public void SearchforDomain() throws InterruptedException {
         // Search for a domain the search bar on the Home page
 
-        WebElement SearchField = driver.findElement(By.id("hp-searchInput"));
-        SearchField.clear();
-        SearchField.sendKeys("biochemical.com");
+        // 1. Describe the Element : By newFieldSearch = By.id("full-height-container");
+       // 2. Locate the Element: driver.findElement(newFieldSearch);
+      // 3. Instantiate a wait : WebDriverWait toWait = new WebDriverWait(driver,30);
+     // 4. Use the wait : toWait.until(visibilityOfAllElementsLocatedBy(newFieldSearch));
+
+        WebElement searchField = driver.findElement(By.id("hp-searchInput"));
+
+        searchField.clear();
+        searchField.sendKeys("biochemical.com");
         Thread.sleep(2000);
 
         WebElement searchButton = driver.findElement(By.id("domainSearch"));
